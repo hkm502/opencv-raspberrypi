@@ -1,0 +1,9 @@
+- hosts: 127.0.0.1
+  connection: local
+  vars:
+    opencv_contrib_folder: /home/{{ansible_ssh_user}}/opencv-contrib
+    opencv_source_folder: /home/{{ansible_ssh_user}}/opencv
+    raspberrypi_core_count: 4
+  roles:
+    - dependencies
+    - opencv

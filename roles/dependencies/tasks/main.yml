@@ -1,0 +1,47 @@
+- name: install developer tools required to build OpenCV from source
+  apt: pkg={{ item }} state=installed
+  sudo: yes
+  with_items:
+    - build-essential
+    - git
+    - cmake
+    - pkg-config
+
+- name: install packages used to load various image formats from disk
+  apt: pkg={{ item }} state=installed
+  sudo: yes
+  with_items:
+    - libjpeg8-dev
+    - libtiff4-dev
+    - libjasper-dev
+    - libpng12-dev
+
+- name: install video I/O packages
+  apt: pkg={{ item }} state=installed
+  sudo: yes
+  with_items:
+    - libavcodec-dev
+    - libavformat-dev
+    - libswscale-dev
+    - libv4l-dev
+
+- name: install GTK which handles OpenCV's GUI operations
+  apt: pkg=libgtk2.0-dev state=installed
+  sudo: yes
+
+- name: installing packages to optimize various functions
+  apt: pkg={{ item }} state=installed
+  sudo: yes
+  with_items:
+    - libatlas-base-dev
+    - gfortran
+
+- name: grab OpenCV from GitHub repository
+  git: repo=https://github.com/Itseez/opencv.git
+       dest={{ opencv_source_folder }}
+       version=3.0.0
+
+- name: grab OpenCV Contrib from GitHub repository
+  git: repo=https://github.com/Itseez/opencv_contrib.git
+       dest={{ opencv_contrib_folder }}
+       version=3.0.0
